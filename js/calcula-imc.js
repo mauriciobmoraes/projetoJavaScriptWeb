@@ -1,5 +1,5 @@
 var titulo_principal = document.querySelector(".titulo_principal");
-titulo_principal.textContent = "Aparecida Nutricionista";
+titulo_principal.textContent = "Maurício Nutricionista";
 
 var arrayPacientes = document.querySelectorAll(".paciente");
 
@@ -13,18 +13,16 @@ for (var i = 0; i < arrayPacientes.length; i++) {
   var peso = tbPeso.textContent;
   var altura = tbAltura.textContent;
 
-  pesoEhValido = true;
-  alturaEhValido = true;
+  var pesoEhValido = validaPeso(peso);
+  var alturaEhValido = validaAltura(altura);
 
-  if (peso <= 0 || peso >= 1000) {
-    pesoEhValido = false;
+  if (!pesoEhValido) {
     console.log("PESO INVÁLIDO");
     tbImc.textContent = "PESO INVÁLIDO";
     paciente.classList.add("paciente-invalido");
   }
 
-  if (altura <= 0 || altura >= 3) {
-    alturaEhValido = false;
+  if (!alturaEhValido) {
     console.log("ALTURA INVÁLIDA");
     tbImc.textContent = "ALTURA INVÁLIDA";
     paciente.classList.add("paciente-invalido");
@@ -35,19 +33,31 @@ for (var i = 0; i < arrayPacientes.length; i++) {
     tbImc.textContent = imc;
   }
 
-  if (pesoEhValido == false && alturaEhValido == false) {
-    console.log("PESO E/OU ALTURA INVÁLIDOS");
-    tbImc.textContent = "PESO E/OU ALTURA INVÁLIDOS";
+  if (!pesoEhValido && !alturaEhValido) {
+    console.log("PESO E ALTURA INVÁLIDOS");
+    tbImc.textContent = "PESO E ALTURA INVÁLIDOS";
     paciente.classList.add("paciente-invalido");
   }
 
   function calculaImc(peso, altura) {
-
     var imc = 0;
     imc = peso / (altura * altura);
     return imc.toFixed(2);
+  }
 
+  function validaPeso(peso) {
+    if (peso > 0 && peso < 1000) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function validaAltura(altura) {
+    if (altura > 0 && altura <= 3.0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
-
-
